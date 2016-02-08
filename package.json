@@ -1,6 +1,6 @@
 {
   "name": "friendly-sharefile-worker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Friendly sharefile worker",
   "main": "index.js",
   "scripts": {
@@ -39,7 +39,7 @@
     "coffee-script": "^1.10.0",
     "commander": "^2.9.0",
     "debug": "^2.2.0",
-    "friendly-sharefile": "^3.1.0",
+    "friendly-sharefile": "^3.2.2",
     "lodash": "^4.3.0",
     "meshblu-config": "^3.1.1",
     "meshblu-core-job-manager": "^3.1.9",
