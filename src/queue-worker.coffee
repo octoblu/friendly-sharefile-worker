@@ -4,9 +4,7 @@ debug             = require('debug')('friendly-sharefile-worker:queue-worker')
 class QueueWorker
   constructor: ({@jobManager,@meshbluConfig}) ->
   run: (callback) =>
-    debug 'running...'
     @jobManager.getRequest ['request'], (error, result) =>
-      debug 'brpop response', error: error, result: result
       return callback error if error?
       return callback() unless result?
 
@@ -25,6 +23,7 @@ class QueueWorker
         responseId:responseId
         code: error.code
       data: error.message
+    debug 'responding with error', response
     @jobManager.createResponse 'response', response, callback
 
   respondWithSuccess: (result, responseId, callback) =>
@@ -33,6 +32,7 @@ class QueueWorker
         responseId: responseId
         code: result.code
       data: result.body
+    debug 'responding with success', response
     @jobManager.createResponse 'response', response, callback
 
 module.exports = QueueWorker
