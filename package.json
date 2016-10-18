@@ -1,6 +1,6 @@
 {
   "name": "friendly-sharefile-worker",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Friendly sharefile worker",
   "main": "index.js",
   "scripts": {
@@ -50,5 +50,16 @@
     "meshblu-config": "^3.1.1",
     "meshblu-core-job-manager": "^3.2.0",
     "redis": "^2.4.2"
+  },
+  "nyc": {
+    "cache": true,
+    "reporter": [
+      "text-summary",
+      "lcov",
+      "json"
+    ],
+    "extension": [
+      ".coffee"
+    ]
   }
 }
