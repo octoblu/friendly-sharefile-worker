@@ -1,9 +1,7 @@
-_             = require 'lodash'
 commander     = require 'commander'
 async         = require 'async'
 redis         = require 'redis'
 RedisNS       = require '@octoblu/redis-ns'
-debug         = require('debug')('friendly-sharefile-worker:command')
 MeshbluConfig = require 'meshblu-config'
 JobManager    = require 'meshblu-core-job-manager'
 packageJSON   = require './package.json'
@@ -18,7 +16,7 @@ class Command
       .version packageJSON.version
       .option '-n, --namespace <friendly-sharefile>', 'job handler queue namespace.', 'friendly-sharefile'
       .option '-s, --single-run', 'perform only one job.'
-      .option '-t, --timeout <600>', 'seconds to wait for a next job.', @parseInt, 600 
+      .option '-t, --timeout <600>', 'seconds to wait for a next job.', @parseInt, 600
       .parse process.argv
 
     {@namespace,@singleRun,@timeout} = commander
@@ -43,6 +41,7 @@ class Command
     client = new RedisNS @namespace, redis.createClient @redisUri
     jobManager = new JobManager {client, timeoutSeconds: @timeout}
     process.on 'SIGTERM', => @terminate = true
+    process.on 'SIGINT', => @terminate = true
 
     meshbluConfig = new MeshbluConfig().toJSON()
 
