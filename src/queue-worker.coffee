@@ -13,7 +13,12 @@ class QueueWorker
       options.data = data
 
       friendlySharefile = new FriendlySharefile {@meshbluConfig,token,domain}
-      friendlySharefile[jobType] options, (error, sharefileResult) =>
+      func = friendlySharefile[jobType]
+      unless func?
+        error = new Error "jobType not found: #{jobType}"
+        console.error error.stack
+        return @respondWithError error, responseId, callback
+      func options, (error, sharefileResult) =>
         return @respondWithError error, responseId, callback if error?
         @respondWithSuccess sharefileResult, responseId, callback
 
