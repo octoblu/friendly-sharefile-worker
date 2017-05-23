@@ -535,9 +535,9 @@ formidable@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/formidable/-/formidable-1.1.1.tgz#96b8886f7c3c3508b932d6bd70c4d3a88f35f1a9"
 
-friendly-sharefile@^3.5.0:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/friendly-sharefile/-/friendly-sharefile-3.5.2.tgz#9a36a4320171856b3c4b76879960bb2296d1e6f3"
+friendly-sharefile@^3.5.3:
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/friendly-sharefile/-/friendly-sharefile-3.5.3.tgz#b1f4126d153c754eba7baa3dafc5f614cd7bc817"
   dependencies:
     async "^2.4.0"
     coffee-script "^1.10.0"
