@@ -21,6 +21,10 @@ class Command
 
     {@namespace,@singleRun,@timeout} = commander
 
+    @jobLogQueue      = process.env.JOB_LOG_QUEUE
+    @jobLogRedisUri   = process.env.JOB_LOG_REDIS_URI
+    @jobLogSampleRate = parseFloat process.env.JOB_LOG_SAMPLE_RATE || '0.01'
+
     if process.env.FRIENDLY_SHAREFILE_NAMESPACE?
       @namespace = process.env.FRIENDLY_SHAREFILE_NAMESPACE
 
@@ -39,7 +43,7 @@ class Command
     console.log 'Starting...'
     @parseOptions()
     client = new RedisNS @namespace, redis.createClient @redisUri
-    jobManager = new JobManager {client, timeoutSeconds: @timeout}
+    jobManager = new JobManager {client, timeoutSeconds: @timeout, @jobLogRedisUri, @jobLogQueue, @jobLogSampleRate }
     process.on 'SIGTERM', => @terminate = true
     process.on 'SIGINT', => @terminate = true
 
