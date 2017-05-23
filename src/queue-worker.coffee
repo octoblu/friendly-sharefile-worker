@@ -7,6 +7,7 @@ class QueueWorker
     @jobManager.getRequest ['request'], (error, result) =>
       return callback error if error?
       return callback() unless result?
+      debug "jobManager result:", JSON.stringify(result,null,2)
 
       {token,domain,jobType,options,responseId} = result.metadata
       data = JSON.parse result.rawData
@@ -18,6 +19,8 @@ class QueueWorker
         error = new Error "jobType not found: #{jobType}"
         console.error error.stack
         return @respondWithError error, responseId, callback
+
+      debug "passing in options to friendlySharefile.#{jobType}", JSON.stringify(options,null,2)
       func options, (error, sharefileResult) =>
         return @respondWithError error, responseId, callback if error?
         @respondWithSuccess sharefileResult, responseId, callback
